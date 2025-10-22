@@ -1,0 +1,75 @@
+//
+//  StopwatchView.swift
+//  Ironman Training
+//
+//  Created by Kade Angell on 10/21/25.
+//
+
+import SwiftUI
+
+struct StopwatchView: View {
+    @State private var elapsedTime: TimeInterval = 0
+    @State private var isRunning = false
+    @State private var timer: Timer?
+    @State private var startTime: Date?
+
+    var body: some View {
+        VStack(spacing: 30) {
+            Text(timeString(from: elapsedTime))
+                .font(.system(size: 60, design: .monospaced))
+
+            HStack(spacing: 20) {
+                Button(isRunning ? "Stop" : "Start") {
+                    if isRunning {
+                        stopTimer()
+                    } else {
+                        startTimer()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button("Reset") {
+                    resetTimer()
+                }
+                .buttonStyle(.bordered)
+                .disabled(elapsedTime == 0 && !isRunning)
+            }
+        }
+        .padding()
+    }
+
+    func startTimer() {
+        let currentElapsed = elapsedTime
+        startTime = Date().addingTimeInterval(-currentElapsed)
+        isRunning = true
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+            if let startTime = startTime {
+                elapsedTime = Date().timeIntervalSince(startTime)
+            }
+        }
+    }
+
+    func stopTimer() {
+        isRunning = false
+        timer?.invalidate()
+        timer = nil
+        startTime = nil
+    }
+
+    func resetTimer() {
+        stopTimer()
+        elapsedTime = 0
+        startTime = nil
+    }
+
+    func timeString(from timeInterval: TimeInterval) -> String {
+        let minutes = Int(timeInterval) / 60
+        let seconds = Int(timeInterval) % 60
+        let milliseconds = Int((timeInterval.truncatingRemainder(dividingBy: 1)) * 100)
+        return String(format: "%02d:%02d.%02d", minutes, seconds, milliseconds)
+    }
+}
+
+#Preview {
+    StopwatchView()
+}
