@@ -20,7 +20,9 @@ struct TodayView: View {
                             // Workout Type Icon
                             workout.type.icon
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
+                                .foregroundStyle(Color.theme.primary)
                                 .frame(width: 80, height: 80)
                                 .padding()
 
@@ -35,7 +37,9 @@ struct TodayView: View {
                                     HStack {
                                         Image("ruler")
                                             .resizable()
+                                            .renderingMode(.template)
                                             .scaledToFit()
+                                            .foregroundStyle(Color.theme.primary)
                                             .frame(width: 20, height: 20)
                                         Text("Distance:")
                                             .fontWeight(.semibold)
@@ -50,7 +54,9 @@ struct TodayView: View {
                                     HStack {
                                         Image("clock")
                                             .resizable()
+                                            .renderingMode(.template)
                                             .scaledToFit()
+                                            .foregroundStyle(Color.theme.primary)
                                             .frame(width: 20, height: 20)
                                         Text("Duration:")
                                             .fontWeight(.semibold)
@@ -67,7 +73,9 @@ struct TodayView: View {
                                     HStack {
                                         Image("description")
                                             .resizable()
+                                            .renderingMode(.template)
                                             .scaledToFit()
+                                            .foregroundStyle(Color.theme.primary)
                                             .frame(width: 20, height: 20)
                                         Text("Description:")
                                             .fontWeight(.semibold)
@@ -89,7 +97,10 @@ struct TodayView: View {
                                 // TODO: Mark workout as complete
                             }) {
                                 HStack {
-                                    Image(systemName: workout.completed ? "checkmark.circle.fill" : "circle")
+                                    Image(workout.completed ? "circle-filled" : "circle")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .scaledToFit()
                                         .foregroundStyle(Color.theme.text)
                                         .frame(width: 24, height: 24)
                                     Text(workout.completed ? "Completed" : "Mark as Complete")
@@ -125,7 +136,9 @@ struct TodayView: View {
                     }) {
                         Image("calendar")
                             .resizable()
+                            .renderingMode(.template)
                             .scaledToFit()
+                            .foregroundStyle(Color.theme.text)
                             .frame(width: 22, height: 22)
                     }
                 }

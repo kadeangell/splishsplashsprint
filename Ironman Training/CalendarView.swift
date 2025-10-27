@@ -98,7 +98,9 @@ struct WorkoutCard: View {
             // Workout icon
             workout.type.icon
                 .resizable()
+                .renderingMode(.template)
                 .scaledToFit()
+                .foregroundStyle(Color.theme.primary)
                 .frame(width: 30, height: 30)
 
             // Workout details
@@ -120,7 +122,10 @@ struct WorkoutCard: View {
 
             // Completion indicator
             if workout.completed {
-                Image(systemName: "checkmark.circle.fill")
+                Image("circle-filled")
+                    .resizable()
+                    .renderingMode(.template)
+                    .scaledToFit()
                     .foregroundStyle(Color.theme.accent)
                     .frame(width: 24, height: 24)
             }
@@ -167,7 +172,9 @@ struct WorkoutDetailView: View {
             VStack(spacing: 20) {
                 workout.type.icon
                     .resizable()
+                    .renderingMode(.template)
                     .scaledToFit()
+                    .foregroundStyle(Color.theme.primary)
                     .frame(width: 60, height: 60)
                     .padding()
 
@@ -183,7 +190,9 @@ struct WorkoutDetailView: View {
                         HStack {
                             Image("ruler")
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
+                                .foregroundStyle(Color.theme.primary)
                                 .frame(width: 20, height: 20)
                             Text("Distance:")
                                 .fontWeight(.semibold)
@@ -198,7 +207,9 @@ struct WorkoutDetailView: View {
                         HStack {
                             Image("clock")
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
+                                .foregroundStyle(Color.theme.primary)
                                 .frame(width: 20, height: 20)
                             Text("Duration:")
                                 .fontWeight(.semibold)
@@ -215,7 +226,9 @@ struct WorkoutDetailView: View {
                         HStack {
                             Image("description")
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
+                                .foregroundStyle(Color.theme.primary)
                                 .frame(width: 20, height: 20)
                             Text("Description:")
                                 .fontWeight(.semibold)

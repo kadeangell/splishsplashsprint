@@ -40,6 +40,7 @@ struct StopwatchView: View {
                 .disabled(elapsedTime == 0 && !isRunning)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
         .background(Color.theme.background)
     }

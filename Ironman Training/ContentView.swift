@@ -13,18 +13,21 @@ struct ContentView: View {
             TodayView()
                 .tabItem {
                     Image("calendar")
+                        .renderingMode(.template)
                     Text("Today")
                 }
 
             StopwatchView()
                 .tabItem {
                     Image("stopwatch")
+                        .renderingMode(.template)
                     Text("Stopwatch")
                 }
 
             TimerView()
                 .tabItem {
                     Image("clock")
+                        .renderingMode(.template)
                     Text("Timer")
                 }
         }

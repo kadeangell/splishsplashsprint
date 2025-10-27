@@ -75,6 +75,7 @@ struct TimerView: View {
                 .tint(Color.theme.secondary)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
         .background(Color.theme.background)
     }

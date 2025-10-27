@@ -57,5 +57,9 @@ struct Ironman_TrainingApp: App {
 
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+
+        // Set tab bar icon tint color
+        UITabBar.appearance().tintColor = UIColor(Color.theme.primary)
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.text.opacity(0.5))
     }
 }
