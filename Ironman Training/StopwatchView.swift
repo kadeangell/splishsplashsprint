@@ -16,7 +16,8 @@ struct StopwatchView: View {
     var body: some View {
         VStack(spacing: 30) {
             Text(timeString(from: elapsedTime))
-                .font(.system(size: 60, design: .monospaced))
+                .font(.custom("PixelifySans-Regular", size: 60))
+                .foregroundStyle(Color.theme.text)
 
             HStack(spacing: 20) {
                 Button(isRunning ? "Stop" : "Start") {
@@ -26,16 +27,21 @@ struct StopwatchView: View {
                         startTimer()
                     }
                 }
+                .fontWeight(.semibold)
                 .buttonStyle(.borderedProminent)
+                .tint(Color.theme.primary)
 
                 Button("Reset") {
                     resetTimer()
                 }
+                .fontWeight(.semibold)
                 .buttonStyle(.bordered)
+                .tint(Color.theme.secondary)
                 .disabled(elapsedTime == 0 && !isRunning)
             }
         }
         .padding()
+        .background(Color.theme.background)
     }
 
     func startTimer() {

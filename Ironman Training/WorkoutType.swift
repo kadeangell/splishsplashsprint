@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum WorkoutType: String, CaseIterable, Codable {
     case swim = "Swim"
@@ -14,18 +15,18 @@ enum WorkoutType: String, CaseIterable, Codable {
     case strength = "Strength"
     case rest = "Rest"
 
-    var icon: String {
+    var icon: Image {
         switch self {
         case .swim:
-            return "figure.pool.swim"
+            return Image("swim")
         case .bike:
-            return "bicycle"
+            return Image("bike")
         case .run:
-            return "figure.run"
+            return Image("run")
         case .strength:
-            return "dumbbell.fill"
+            return Image("lift")
         case .rest:
-            return "bed.double.fill"
+            return Image("bed")
         }
     }
 }

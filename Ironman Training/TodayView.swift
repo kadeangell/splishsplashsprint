@@ -18,39 +18,46 @@ struct TodayView: View {
                     ScrollView {
                         VStack(spacing: 30) {
                             // Workout Type Icon
-                            Image(systemName: workout.type.icon)
-                                .font(.system(size: 80))
-                                .foregroundStyle(.blue)
+                            workout.type.icon
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
                                 .padding()
 
                             // Workout Type
                             Text(workout.type.rawValue)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
+                                .font(.custom("PixelifySans-Regular", size: 34))
+                                .foregroundStyle(Color.theme.text)
 
                             // Workout Details Card
                             VStack(alignment: .leading, spacing: 16) {
                                 if let distance = workout.plannedDistance {
                                     HStack {
-                                        Image(systemName: "ruler")
-                                            .foregroundStyle(.blue)
+                                        Image("ruler")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
                                         Text("Distance:")
                                             .fontWeight(.semibold)
+                                            .foregroundStyle(Color.theme.text)
                                         Spacer()
                                         Text(formatDistance(distance, type: workout.type))
-                                            .foregroundStyle(.secondary)
+                                            .foregroundStyle(Color.theme.secondary)
                                     }
                                 }
 
                                 if workout.plannedDuration > 0 {
                                     HStack {
-                                        Image(systemName: "clock")
-                                            .foregroundStyle(.blue)
+                                        Image("clock")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
                                         Text("Duration:")
                                             .fontWeight(.semibold)
+                                            .foregroundStyle(Color.theme.text)
                                         Spacer()
                                         Text(formatDuration(workout.plannedDuration))
-                                            .foregroundStyle(.secondary)
+                                            .foregroundStyle(Color.theme.secondary)
                                     }
                                 }
 
@@ -58,19 +65,22 @@ struct TodayView: View {
 
                                 VStack(alignment: .leading, spacing: 8) {
                                     HStack {
-                                        Image(systemName: "note.text")
-                                            .foregroundStyle(.blue)
+                                        Image("description")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
                                         Text("Description:")
                                             .fontWeight(.semibold)
+                                            .foregroundStyle(Color.theme.text)
                                     }
                                     Text(workout.plannedDescription)
-                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(Color.theme.secondary)
                                 }
                             }
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color(.systemGray6))
+                                    .fill(Color.theme.secondary.opacity(0.1))
                             )
                             .padding(.horizontal)
 
@@ -80,13 +90,15 @@ struct TodayView: View {
                             }) {
                                 HStack {
                                     Image(systemName: workout.completed ? "checkmark.circle.fill" : "circle")
+                                        .foregroundStyle(Color.theme.text)
+                                        .frame(width: 24, height: 24)
                                     Text(workout.completed ? "Completed" : "Mark as Complete")
                                 }
-                                .font(.headline)
-                                .foregroundStyle(.white)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.theme.text)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(workout.completed ? Color.green : Color.blue)
+                                .background(workout.completed ? Color.theme.accent : Color.theme.primary)
                                 .cornerRadius(12)
                             }
                             .padding(.horizontal)
@@ -102,13 +114,19 @@ struct TodayView: View {
                     )
                 }
             }
+            .background(Color.theme.background)
             .navigationTitle("Today's Workout")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         showingCalendar = true
                     }) {
-                        Image(systemName: "calendar")
+                        Image("calendar")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 22, height: 22)
                     }
                 }
             }

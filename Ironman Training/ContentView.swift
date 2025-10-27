@@ -12,19 +12,23 @@ struct ContentView: View {
         TabView {
             TodayView()
                 .tabItem {
-                    Label("Today", systemImage: "calendar")
+                    Image("calendar")
+                    Text("Today")
                 }
 
             StopwatchView()
                 .tabItem {
-                    Label("Stopwatch", systemImage: "stopwatch")
+                    Image("stopwatch")
+                    Text("Stopwatch")
                 }
 
             TimerView()
                 .tabItem {
-                    Label("Timer", systemImage: "timer")
+                    Image("clock")
+                    Text("Timer")
                 }
         }
+        .environment(\.font, .pixelifySans(size: 17))
     }
 }
 

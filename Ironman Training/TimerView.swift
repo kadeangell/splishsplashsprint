@@ -20,7 +20,8 @@ struct TimerView: View {
         VStack(spacing: 30) {
             if isRunning || timeRemaining > 0 {
                 Text(timeString(from: timeRemaining))
-                    .font(.system(size: 60, design: .monospaced))
+                    .font(.custom("PixelifySans-Regular", size: 60))
+                    .foregroundStyle(Color.theme.text)
             } else {
                 HStack(spacing: 0) {
                     Picker("Hours", selection: $selectedHours) {
@@ -30,7 +31,7 @@ struct TimerView: View {
                     }
                     .pickerStyle(.wheel)
                     .frame(width: 60)
-                    Text("h").font(.title2)
+                    Text("h").font(.custom("PixelifySans-SemiBold", size: 22)).foregroundStyle(Color.theme.text)
 
                     Picker("Minutes", selection: $selectedMinutes) {
                         ForEach(0..<60) { minute in
@@ -39,7 +40,7 @@ struct TimerView: View {
                     }
                     .pickerStyle(.wheel)
                     .frame(width: 60)
-                    Text("m").font(.title2)
+                    Text("m").font(.custom("PixelifySans-SemiBold", size: 22)).foregroundStyle(Color.theme.text)
 
                     Picker("Seconds", selection: $selectedSeconds) {
                         ForEach(0..<60) { second in
@@ -48,7 +49,7 @@ struct TimerView: View {
                     }
                     .pickerStyle(.wheel)
                     .frame(width: 60)
-                    Text("s").font(.title2)
+                    Text("s").font(.custom("PixelifySans-SemiBold", size: 22)).foregroundStyle(Color.theme.text)
                 }
                 .frame(height: 150)
             }
@@ -61,16 +62,21 @@ struct TimerView: View {
                         startTimer()
                     }
                 }
+                .fontWeight(.semibold)
                 .buttonStyle(.borderedProminent)
+                .tint(Color.theme.primary)
                 .disabled(selectedHours == 0 && selectedMinutes == 0 && selectedSeconds == 0 && timeRemaining == 0)
 
                 Button("Reset") {
                     resetTimer()
                 }
+                .fontWeight(.semibold)
                 .buttonStyle(.bordered)
+                .tint(Color.theme.secondary)
             }
         }
         .padding()
+        .background(Color.theme.background)
     }
 
     func setTimerFromPickers() {

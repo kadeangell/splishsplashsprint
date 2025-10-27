@@ -20,7 +20,7 @@ struct CalendarView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             // Week header
                             Text(formatWeekRange(weekStart: weekStart))
-                                .font(.headline)
+                                .fontWeight(.semibold)
                                 .foregroundStyle(.secondary)
                                 .padding(.horizontal)
 
@@ -39,6 +39,7 @@ struct CalendarView: View {
                 .padding(.vertical)
             }
             .navigationTitle("Training Calendar")
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 loadWorkouts()
             }
@@ -87,8 +88,7 @@ struct WorkoutCard: View {
             // Date
             VStack {
                 Text(workout.date, format: .dateTime.day())
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.custom("PixelifySans-Bold", size: 22))
                 Text(workout.date, format: .dateTime.weekday(.abbreviated))
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -96,19 +96,18 @@ struct WorkoutCard: View {
             .frame(width: 50)
 
             // Workout icon
-            Image(systemName: workout.type.icon)
-                .font(.title2)
-                .foregroundStyle(workout.completed ? .green : .blue)
-                .frame(width: 40)
+            workout.type.icon
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30)
 
             // Workout details
             VStack(alignment: .leading, spacing: 4) {
                 Text(workout.type.rawValue)
-                    .font(.headline)
+                    .fontWeight(.semibold)
 
                 if let distance = workout.plannedDistance {
                     Text(formatDistance(distance, type: workout.type))
-                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
 
@@ -122,8 +121,8 @@ struct WorkoutCard: View {
             // Completion indicator
             if workout.completed {
                 Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
-                    .font(.title3)
+                    .foregroundStyle(Color.theme.accent)
+                    .frame(width: 24, height: 24)
             }
         }
         .padding()
@@ -166,41 +165,47 @@ struct WorkoutDetailView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                Image(systemName: workout.type.icon)
-                    .font(.system(size: 60))
-                    .foregroundStyle(.blue)
+                workout.type.icon
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
                     .padding()
 
                 Text(workout.type.rawValue)
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .font(.custom("PixelifySans-Bold", size: 28))
+                    .foregroundStyle(Color.theme.text)
 
                 Text(workout.date, format: .dateTime.month().day().year())
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.theme.secondary)
 
                 VStack(alignment: .leading, spacing: 16) {
                     if let distance = workout.plannedDistance {
                         HStack {
-                            Image(systemName: "ruler")
-                                .foregroundStyle(.blue)
+                            Image("ruler")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                             Text("Distance:")
                                 .fontWeight(.semibold)
+                                .foregroundStyle(Color.theme.text)
                             Spacer()
                             Text(formatDistance(distance))
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.theme.secondary)
                         }
                     }
 
                     if workout.plannedDuration > 0 {
                         HStack {
-                            Image(systemName: "clock")
-                                .foregroundStyle(.blue)
+                            Image("clock")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                             Text("Duration:")
                                 .fontWeight(.semibold)
+                                .foregroundStyle(Color.theme.text)
                             Spacer()
                             Text(formatDuration(workout.plannedDuration))
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.theme.secondary)
                         }
                     }
 
@@ -208,19 +213,22 @@ struct WorkoutDetailView: View {
 
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Image(systemName: "note.text")
-                                .foregroundStyle(.blue)
+                            Image("description")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                             Text("Description:")
                                 .fontWeight(.semibold)
+                                .foregroundStyle(Color.theme.text)
                         }
                         Text(workout.plannedDescription)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.theme.secondary)
                     }
                 }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.systemGray6))
+                        .fill(Color.theme.secondary.opacity(0.1))
                 )
                 .padding(.horizontal)
 
@@ -231,13 +239,15 @@ struct WorkoutDetailView: View {
                     }) {
                         HStack {
                             Image(systemName: "arrow.left.arrow.right")
+                                .foregroundStyle(Color.theme.text)
+                                .frame(width: 20, height: 20)
                             Text("Trade with Today")
                         }
-                        .font(.headline)
-                        .foregroundStyle(.white)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.theme.text)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.orange)
+                        .background(Color.theme.accent)
                         .cornerRadius(12)
                     }
                     .padding(.horizontal)
@@ -246,6 +256,7 @@ struct WorkoutDetailView: View {
                 Spacer()
             }
             .padding()
+            .background(Color.theme.background)
             .navigationTitle("Workout Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
